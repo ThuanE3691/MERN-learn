@@ -1,0 +1,55 @@
+####################################### Check Login 
+GET http://localhost:5000/api/auth/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODM5OTU4NTd9.VgCJb7ktNDDIC_83ndsaSlCpxIfYAEcJfo5TZfyrR1Q
+
+
+############################################# REGISTER
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "Hanoi",
+    "password": "01234"
+}
+
+############################################# LOGIN
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "thuan",
+    "password": "1234"
+}
+
+################################# CREATE SKILL
+POST http://localhost:5000/api/skills
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODM5OTU4NTd9.VgCJb7ktNDDIC_83ndsaSlCpxIfYAEcJfo5TZfyrR1Q
+
+{
+    "title" : "MERN Advanced",
+    "description": "Learn MERN",
+    "url": "google.com",
+    "status": "LEARNING"
+}
+
+################################# GET SKILL
+GET http://localhost:5000/api/skills
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODM5OTU4NTd9.VgCJb7ktNDDIC_83ndsaSlCpxIfYAEcJfo5TZfyrR1Q
+
+################################# UPDATE SKILL
+PUT http://localhost:5000/api/skills/645fba175dab6e4d78122721
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODM5OTU4NTd9.VgCJb7ktNDDIC_83ndsaSlCpxIfYAEcJfo5TZfyrR1Q
+
+{
+    "title": "MERN Beginner",
+    "description": "MERN for only beginner",
+    "url": "shoppe.com",
+    "status": "TO LEARN"
+}
+
+
+################################# UPDATE SKILL
+DELETE http://localhost:5000/api/skills/645fbcdfae0cb5dac7669a03
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODM5OTU4NTd9.VgCJb7ktNDDIC_83ndsaSlCpxIfYAEcJfo5TZfyrR1Q
