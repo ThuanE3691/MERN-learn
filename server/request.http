@@ -24,13 +24,13 @@ Content-Type: application/json
 ################################# CREATE SKILL
 POST http://localhost:5000/api/skills
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODM5OTU4NTd9.VgCJb7ktNDDIC_83ndsaSlCpxIfYAEcJfo5TZfyrR1Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODQ0Mjg4OTh9.nD-_3RcE-A5KqWNWFFYIVFLT9kOMtggeFrH8tBIA9tE
 
 {
-    "title" : "MERN Advanced",
-    "description": "Learn MERN",
-    "url": "google.com",
-    "status": "LEARNING"
+    "title" : "LEARN 3",
+    "description": "Test Card",
+    "url": "youtube.com",
+    "status": "LEARNED"
 }
 
 ################################# GET SKILL
@@ -38,15 +38,15 @@ GET http://localhost:5000/api/skills
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODM5OTU4NTd9.VgCJb7ktNDDIC_83ndsaSlCpxIfYAEcJfo5TZfyrR1Q
 
 ################################# UPDATE SKILL
-PUT http://localhost:5000/api/skills/645fba175dab6e4d78122721
+PUT http://localhost:5000/api/skills/6466588cf116c6591df101d6
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODM5OTU4NTd9.VgCJb7ktNDDIC_83ndsaSlCpxIfYAEcJfo5TZfyrR1Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmOWIyMDBjNDQzOGIzMDRmZTAwMjkiLCJpYXQiOjE2ODQ0Mjg4OTh9.nD-_3RcE-A5KqWNWFFYIVFLT9kOMtggeFrH8tBIA9tE
 
 {
-    "title": "MERN Beginner",
-    "description": "MERN for only beginner",
-    "url": "shoppe.com",
-    "status": "TO LEARN"
+    "title": "LEARN 2",
+    "description": "Test Card",
+    "url": "https://youtube.com",
+    "status": "LEARNING"
 }
 
 

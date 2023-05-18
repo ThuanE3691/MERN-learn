@@ -1,5 +1,5 @@
 import Badge from "react-bootstrap/Badge";
-import Button from "react-bootstrap/Button";
+import ActionButton from "./ActionButton";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -17,14 +17,13 @@ const SingleSkill = ({ skill: { _id, status, title, description, url } }) => {
         <Card.Title>
           <Row>
             <Col>
-              <p className="post-title">{title}</p>
+              <p className="post-title ">{title}</p>
               <Badge pill variant={border_color[status]}>
                 {status}
               </Badge>
             </Col>
-            <Col className = 'text-right'>
-                {/* <ActionButtons url = {url} _id = {_id}></ActionButtons> */}
-                Button
+            <Col className="">
+                <ActionButton url = {url} _id = {_id}></ActionButton>
             </Col>
           </Row>
         </Card.Title>

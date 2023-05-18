@@ -7,6 +7,11 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import Toast from "react-bootstrap/Toast";
+import AddSkillModel from "../components/skills/AddSkillModal";
+import addIcon from "../assets/plus-circle-fill.svg";
 
 const Dashboard = () => {
   const {
@@ -16,11 +21,26 @@ const Dashboard = () => {
   const {
     skillState: { skills, skillLoading },
     getSkills,
+    setShowAddSkillModal,
+    showToast : {show, message, type},
+    setShowToast,
   } = useContext(SkillContext);
 
   useEffect(() => {
     getSkills();
   }, []);
+
+  const openDialog = () => {
+    setShowAddSkillModal(true);
+  };
+
+  const showOffToast = () => {
+    setShowToast({
+      show: false,
+      message: "",
+      type: null
+    })
+  }
 
   let body = null;
 
@@ -55,11 +75,35 @@ const Dashboard = () => {
             </Col>
           ))}
         </Row>
+        <OverlayTrigger
+          placement="left"
+          overlay={<Tooltip>Add a new skill to learn</Tooltip>}
+        >
+          <Button className="btn-floating" onClick={openDialog}>
+            <img src={addIcon} alt="add" width="60" height="60" />
+          </Button>
+        </OverlayTrigger>
       </>
     );
   }
 
-  return <div>{body}</div>;
+  return (
+    <div>
+      {body} <AddSkillModel></AddSkillModel>{" "}
+      <Toast
+        show={show}
+        style={{ position: "fixed", top: "20%", right: "10px" }}
+        className={`bg-${type} text-white`}
+        onClose={showOffToast}
+        delay = {3000}
+        autohide
+      >
+        <Toast.Body>
+          <strong>{message}</strong>
+        </Toast.Body>
+      </Toast>
+    </div>
+  );
 };
 
 export default Dashboard;

@@ -4,3 +4,8 @@ export const apiUrl =
 		: ''
 
 export const LOCAL_STORAGE_TOKEN_NAME = 'learnit-mern'
+export const ADD_SKILL = 'ADD_SKILL'
+export const SKILLS_LOADED_SUCCESS = 'SKILLS_LOADED_SUCCESS'
+export const SKILLS_LOADED_FAIL = 'SKILLS_LOADED_FAIL'
+
+

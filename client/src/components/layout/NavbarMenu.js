@@ -17,7 +17,7 @@ const NavbarMenu = () => {
 
   return (
     <Navbar expand="lg" bg="primary" variant="dark" className="shadow">
-      <Navbar.Brand className="fw-bold text-white">
+      <Navbar.Brand className="fw-bold text-white ms-4">
         <img
           src={learnItLogo}
           alt="learnItLogo"
