@@ -2,28 +2,29 @@ import { useContext, useEffect } from "react";
 import { SkillContext } from "../contexts/SkillContext";
 import { AuthContext } from "../contexts/AuthContext";
 import SingleSkill from "../components/skills/SingleSkill";
-import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import Toast from "react-bootstrap/Toast";
+import ShowToast from "../components/layout/ShowToast";
 import AddSkillModel from "../components/skills/AddSkillModal";
+import UpdateSkillModal from "../components/skills/UpdateSkillModal";
 import addIcon from "../assets/plus-circle-fill.svg";
+import Loading from "../components/layout/Loading";
 
 const Dashboard = () => {
   const {
-    authState: { user: username },
+    authState: {
+      user: { username },
+    },
   } = useContext(AuthContext);
 
   const {
-    skillState: { skills, skillLoading },
+    skillState: { skill, skills, skillLoading },
     getSkills,
     setShowAddSkillModal,
-    showToast : {show, message, type},
-    setShowToast,
   } = useContext(SkillContext);
 
   useEffect(() => {
@@ -34,22 +35,18 @@ const Dashboard = () => {
     setShowAddSkillModal(true);
   };
 
-  const showOffToast = () => {
-    setShowToast({
-      show: false,
-      message: "",
-      type: null
-    })
-  }
+  const SkillRender = () => {
+    return skills.map((skill) => (
+      <Col key={skill._id} className="my-2">
+        <SingleSkill skill={skill}></SingleSkill>
+      </Col>
+    ));
+  };
 
   let body = null;
 
   if (skillLoading) {
-    body = (
-      <div className="d-flex justify-content-center mt-2">
-        <Spinner animation="border" variant="info"></Spinner>
-      </div>
-    );
+    body = <Loading></Loading>;
   } else if (skills.length === 0) {
     body = (
       <>
@@ -60,7 +57,9 @@ const Dashboard = () => {
             <Card.Text>
               Click the button below to track your first skill to learn
             </Card.Text>
-            <Button variant="primary">LearnIt</Button>
+            <Button variant="primary" onClick={openDialog}>
+              LearnIt
+            </Button>
           </Card.Body>
         </Card>
       </>
@@ -69,11 +68,7 @@ const Dashboard = () => {
     body = (
       <>
         <Row className="row-cols-1 row-cols-md-3 g-4 mx-auto mt-3">
-          {skills.map((skill) => (
-            <Col key={skill._id} className="my-2">
-              <SingleSkill skill={skill}></SingleSkill>
-            </Col>
-          ))}
+          {SkillRender()}
         </Row>
         <OverlayTrigger
           placement="left"
@@ -89,19 +84,10 @@ const Dashboard = () => {
 
   return (
     <div>
-      {body} <AddSkillModel></AddSkillModel>{" "}
-      <Toast
-        show={show}
-        style={{ position: "fixed", top: "20%", right: "10px" }}
-        className={`bg-${type} text-white`}
-        onClose={showOffToast}
-        delay = {3000}
-        autohide
-      >
-        <Toast.Body>
-          <strong>{message}</strong>
-        </Toast.Body>
-      </Toast>
+      {body} 
+      <AddSkillModel/>
+      {skill !== null && <UpdateSkillModal/>}
+      <ShowToast/>
     </div>
   );
 };

@@ -5,6 +5,9 @@ import {
   ADD_SKILL,
   SKILLS_LOADED_SUCCESS,
   SKILLS_LOADED_FAIL,
+  DELETE_SKILL,
+  UPDATE_SKILL,
+  FIND_SKILL,
 } from "./constants";
 import axios from "axios";
 
@@ -12,11 +15,13 @@ export const SkillContext = createContext();
 
 const SkillContextProvider = ({ children }) => {
   const [skillState, dispatch] = useReducer(skillReducer, {
+    skill: null,
     skills: [],
     skillsLoading: true,
   });
 
   const [showAddSkillModal, setShowAddSkillModal] = useState(false);
+  const [showUpdateSkillModal, setShowUpdateSkillModal] = useState(false);
 
   const [showToast, setShowToast] = useState({
     show: false,
@@ -62,6 +67,48 @@ const SkillContextProvider = ({ children }) => {
     }
   };
 
+  // Find Skill has clicked
+  const findSkill = (skillId) => {
+    const skill = skillState.skills.find((skill) => skill._id === skillId);
+    dispatch({
+      type: FIND_SKILL,
+      payload: skill,
+    });
+  };
+
+  // update skill
+
+  const updateSkill = async (updatedSkill) => {
+    try {
+      const response = await axios.put(
+        `${apiUrl}/skills/${updatedSkill._id}`,
+        updatedSkill
+      );
+      if (response.data.success) {
+        dispatch({
+          type: UPDATE_SKILL,
+          payload: response.data.updatedSkill,
+        });
+        return response.data;
+      }
+    } catch (error) {}
+  };
+
+  // delete skill
+  const deleteSkill = async (skillId) => {
+    try {
+      const response = await axios.delete(`${apiUrl}/skills/${skillId}`);
+      if (response.data.success) {
+        dispatch({
+          type: DELETE_SKILL,
+          payload: skillId,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Skill context data
 
   const skillContextData = {
@@ -72,6 +119,11 @@ const SkillContextProvider = ({ children }) => {
     addSkill,
     showToast,
     setShowToast,
+    deleteSkill,
+    findSkill,
+    updateSkill,
+    showUpdateSkillModal,
+    setShowUpdateSkillModal,
   };
   return (
     <SkillContext.Provider value={skillContextData}>

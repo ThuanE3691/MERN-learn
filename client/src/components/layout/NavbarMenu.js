@@ -9,9 +9,10 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const NavbarMenu = () => {
   const {
-    authState: { user: username },
+    authState: { user: {username} },
     logoutUser,
   } = useContext(AuthContext);
+  
 
   const logout = () => logoutUser();
 

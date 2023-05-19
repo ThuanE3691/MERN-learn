@@ -24,7 +24,8 @@ router.get('/', verifyToken, async (req, res) => {
         res
         .json({
             success: true,
-            message: 'User has logged in'
+            message: 'User has logged in',
+            user: user
         })
         
     } catch (error) {

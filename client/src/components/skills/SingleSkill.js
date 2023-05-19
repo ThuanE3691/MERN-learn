@@ -5,20 +5,20 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const SingleSkill = ({ skill: { _id, status, title, description, url } }) => {
-  const border_color = {
+  const status_color = {
     LEARNED: "success",
     LEARNING: "warning",
     "TO LEARN": "danger",
   };
 
   return (
-    <Card className="shadow" border={border_color[status]}>
+    <Card className="shadow" border={status_color[status]}>
       <Card.Body>
         <Card.Title>
           <Row>
             <Col>
-              <p className="post-title ">{title}</p>
-              <Badge pill variant={border_color[status]}>
+              <p className="post-title">{title}</p>
+              <Badge pill className = {`bg-${status_color[status]}`}>
                 {status}
               </Badge>
             </Col>

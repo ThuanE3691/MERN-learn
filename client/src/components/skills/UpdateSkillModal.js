@@ -1,44 +1,42 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SkillContext } from "../../contexts/SkillContext";
 
-const AddSkillModel = () => {
-  const { showAddSkillModal, setShowAddSkillModal, addSkill, setShowToast } =
-    useContext(SkillContext);
+const UpdateSkillModal = () => {
+  const {
+    skillState: { skill },
+    showUpdateSkillModal,
+    setShowUpdateSkillModal,
+    updateSkill,
+    setShowToast,
+  } = useContext(SkillContext);
 
-  const [newSkill, setNewSkill] = useState({
-    title: "",
-    description: "",
-    url: "",
-    status: "TO LEARN",
-  });
+  const [updatedSkill, setUpdatedSkill] = useState(skill);
 
-  const { title, description, url } = newSkill;
+  const { title, description, url, status } = updatedSkill;
 
-  const onChangeNewSkillForm = (event) =>
-    setNewSkill({ ...newSkill, [event.target.name]: event.target.value });
+  useEffect(() => {
+    setUpdatedSkill(skill)
+  }, [skill])
 
-  const resetAddSkill = () => {
-    setNewSkill({
-      title: "",
-      description: "",
-      url: "",
-      status: "TO LEARN",
+  const onChangeUpdatedSkillForm = (event) =>
+    setUpdatedSkill({
+      ...updatedSkill,
+      [event.target.name]: event.target.value,
     });
-    setShowAddSkillModal(false);
-  };
 
   const closeDialog = () => {
-    resetAddSkill();
+    setUpdatedSkill(skill)
+    setShowUpdateSkillModal(false)
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { success, message } = await addSkill(newSkill);
-      resetAddSkill();
+      const { success, message } = await updateSkill(updatedSkill);
+      setShowUpdateSkillModal(false)
       setShowToast({
         show: true,
         message: message,
@@ -49,10 +47,10 @@ const AddSkillModel = () => {
     }
   };
 
-  return (
-    <Modal show={showAddSkillModal} onHide={closeDialog}>
+  return skill !== null ? (
+    <Modal show={showUpdateSkillModal} onHide={closeDialog}>
       <Modal.Header closeButton>
-        <Modal.Title>What do you want to learn</Modal.Title>
+        <Modal.Title>Making Progess?</Modal.Title>
       </Modal.Header>
       <Form onSubmit={onSubmit}>
         <Modal.Body>
@@ -64,7 +62,7 @@ const AddSkillModel = () => {
               required
               aria-describedby="title-help"
               value={title}
-              onChange={onChangeNewSkillForm}
+              onChange={onChangeUpdatedSkillForm}
             ></Form.Control>
             <Form.Text id="title-help" muted>
               Required
@@ -77,7 +75,7 @@ const AddSkillModel = () => {
               placeholder="Description"
               name="description"
               value={description}
-              onChange={onChangeNewSkillForm}
+              onChange={onChangeUpdatedSkillForm}
             ></Form.Control>
           </Form.Group>
           <Form.Group className="mt-3">
@@ -86,8 +84,20 @@ const AddSkillModel = () => {
               placeholder="Youtube Tutorial URL"
               name="url"
               value={url}
-              onChange={onChangeNewSkillForm}
+              onChange={onChangeUpdatedSkillForm}
             ></Form.Control>
+          </Form.Group>
+          <Form.Group className="mt-3">
+            <Form.Control
+              as="select"
+              name="status"
+              value={status}
+              onChange={onChangeUpdatedSkillForm}
+            >
+              <option value="TO LEARN">TO LEARN</option>
+              <option value="LEARNING">LEARNING</option>
+              <option value="LEARNED">LEARNED</option>
+            </Form.Control>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -95,12 +105,14 @@ const AddSkillModel = () => {
             Cancel
           </Button>
           <Button variant="primary" type="submit">
-            LEARNIT!
+            Update Skill
           </Button>
         </Modal.Footer>
       </Form>
     </Modal>
+  ) : (
+    <></>
   );
 };
 
-export default AddSkillModel;
+export default UpdateSkillModal;

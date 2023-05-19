@@ -43,10 +43,12 @@
 	padding-top: 0;
 	background: transparent;
 	border: none;
+	transition: ease-in-out 0.2s;
 }
 
 .post-button:hover {
 	background: transparent;
+	opacity: 60%;
 }
 
 a.post-button.btn:focus,
